@@ -32,10 +32,10 @@ jobs:
       run: docker login -u arkyy21 -p ${{ secrets.DOCKERHUB_TOKEN }}
 
     - name: Build the Docker image
-      run: docker build -t ${{ inputs.name}}:${{ inputs.version }} .
+      run: docker build -t gitint:1234 .
 
 
 
     - name: Docker Image push
-      run: docker image push ${{ inputs.name}}:${{ inputs.version }}
+      run: docker image push gitint:1234
 
