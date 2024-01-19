@@ -28,11 +28,13 @@ jobs:
     - uses: actions/checkout@v3
 
 
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag ${{ inputs.name}}:${{ inputs.version }}
-
     - name: Login to Docker Hub
       run: docker login -u arkyy21 -p ${{ secrets.DOCKERHUB_TOKEN }}
+
+    - name: Build the Docker image
+      run: docker build . -t ${{ inputs.name}}:${{ inputs.version }}
+
+
 
     - name: Docker Image push
       run: docker image push ${{ inputs.name}}:${{ inputs.version }}
