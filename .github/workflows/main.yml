@@ -33,9 +33,7 @@ jobs:
 
     - name: Build the Docker image
       run: docker build -t gitint:1234 .
-
-
-
+      
     - name: Docker Image push
       run: docker push arkyy21/gitint:1234
 
