@@ -62,7 +62,7 @@ pipeline {
             }
         }
 
-        stage('Clean Folder') {
+        stage('Clean Folder post Build') {
             steps {
                 cleanWs()
             }
