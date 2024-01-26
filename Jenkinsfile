@@ -46,13 +46,23 @@ pipeline {
                         sh'docker rmi arkyy21/${img_name}:${img_tag}'
     
                     }
-                }
-                
-                
+                }                
             }
         }
 
-        
+        stage('SonarQube Analysis') {
+            steps{
+                script{
+                    def scannerHome = tool 'sonarscanner';
+                    withSonarQubeEnv(credentialsId: 'Sonar', installationName: 'sonar_sys'){
+                        sh "${scannerHome}/bin/sonar-scanner \
+                        -Dsonar.projectKey=Jenk  "
+                    }
+                
+                }
+            }
+        }
+
         
     }
 }
