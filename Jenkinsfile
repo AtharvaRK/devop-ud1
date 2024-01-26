@@ -14,14 +14,14 @@ pipeline {
  
     stages {
         
-        stage('Clean Repo') {
+        stage('Clean Folder') {
             steps {
                 cleanWs()
             }
         }
         
         
-        stage('Hello') {
+        stage('Git Checkout') {
             steps {
                 git branch: 'main', credentialsId: 'PAT_Jenkin', url: "${params.Github_url}"
             }
@@ -32,7 +32,6 @@ pipeline {
                 script{
                     sh 'docker --version'
                     echo 'Login Completed'
-                    sh'pwd'
                 }
             }
         }
@@ -63,6 +62,11 @@ pipeline {
             }
         }
 
+        stage('Clean Folder') {
+            steps {
+                cleanWs()
+            }
+        }
         
     }
 }
