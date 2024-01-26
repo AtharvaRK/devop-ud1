@@ -4,6 +4,13 @@ pipeline {
    environment {
         DOCKER_PASS = credentials('docker_pass')
     } 
+    
+    parameters {
+        string(name: 'Github_url', defaultValue: 'https://github.com/AtharvaRK/devop-ud1', description: 'Github URL')
+        string(name: 'img_tag', defaultValue: '01', description: 'Provide tag of Image')
+        string(name: 'img_name', defaultValue: 'jenkitbuild', description: 'Image name')
+    }
+  
  
     stages {
         
@@ -16,7 +23,7 @@ pipeline {
         
         stage('Hello') {
             steps {
-                git branch: 'main', credentialsId: 'PAT_Jenkin', url: 'https://github.com/AtharvaRK/devop-ud1'
+                git branch: 'main', credentialsId: 'PAT_Jenkin', url: "${params.Github_url}"
             }
         }
         
@@ -34,9 +41,9 @@ pipeline {
             steps{
                 script{
                     withDockerRegistry(credentialsId: 'docker_pass') {
-                        sh'docker build -t arkyy21/jenkitbuild:01 .' 
-                        sh'docker push arkyy21/jenkitbuild:01'
-                        sh'docker rmi arkyy21/jenkitbuild:01'
+                        sh'docker build -t arkyy21/${img_name}:${img_tag} .' 
+                        sh'docker push arkyy21/${img_name}:${img_tag}'
+                        sh'docker rmi arkyy21/${img_name}:${img_tag}'
     
                     }
                 }
